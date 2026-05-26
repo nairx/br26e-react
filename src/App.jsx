@@ -1,27 +1,44 @@
-import React from 'react'
+import React, { useState } from "react";
 export default function App() {
+  const [user, setUser] = useState({});
+  const [users, setUsers] = useState([]);
+  const handleSubmit = () => {
+    setUsers([...users, user]);
+  };
   return (
     <div>
       <h3>Registration Form</h3>
       <p>
-        <input type="text" placeholder='Name' />
+        <input
+          type="text"
+          onChange={(e) => setUser({ ...user, name: e.target.value })}
+          placeholder="Name"
+        />
       </p>
       <p>
-        <input type="text" placeholder='Email' />
+        <input
+          type="text"
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          placeholder="Email"
+        />
       </p>
       <p>
-        <input type="password" placeholder='Password' />
+        <input
+          type="password"
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          placeholder="Password"
+        />
       </p>
       <p>
-        <button>Submit</button>
+        <button onClick={handleSubmit}>Submit</button>
       </p>
       <hr />
-
+      {users && users.map(user=>(
+        <li>{user.name}-{user.email}-{user.password}</li>
+      ))}
     </div>
-  )
+  );
 }
-
-
 
 // import React, { useState } from "react";
 // export default function App() {
