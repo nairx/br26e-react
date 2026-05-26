@@ -1,16 +1,38 @@
+//conditional renderig using && operator
+import React from "react";
+function Pass() {
+  return <div>Pass</div>;
+}
+export default function App() {
+  let score = 50;
+  return <div>{score > 40 && <Pass />}</div>;
+}
+
+//conditional rendering using ternary operator
+// import React from "react";
+// function Pass() {
+//   return <div>Pass</div>;
+// }
+// function Fail() {
+//   return <div>Fail</div>;
+// }
+// export default function App() {
+//   let score = 50;
+//   return <div>{score > 40 ? <Pass /> : <Fail />}</div>;
+// }
 
 //passing argument to a function
-import React from 'react'
-export default function App() {
-  const handleClick = (name) => {
-    alert(name)
-  }
-  return (
-    <div>
-      <button onClick={()=>handleClick("John")}>Click</button>
-    </div>
-  )
-}
+// import React from 'react'
+// export default function App() {
+//   const handleClick = (name) => {
+//     alert(name)
+//   }
+//   return (
+//     <div>
+//       <button onClick={()=>handleClick("John")}>Click</button>
+//     </div>
+//   )
+// }
 
 //Handling events
 // import React from 'react'
@@ -24,7 +46,6 @@ export default function App() {
 //     </div>
 //   )
 // }
-
 
 //external styling
 // import React from "react";
