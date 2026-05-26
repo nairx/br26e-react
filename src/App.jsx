@@ -1,12 +1,114 @@
-//conditional renderig using && operator
 import React from "react";
-function Pass() {
-  return <div>Pass</div>;
-}
+import { useRef,useState } from "react";
 export default function App() {
-  let score = 50;
-  return <div>{score > 40 && <Pass />}</div>;
+  const numRef = useRef();
+  const [result, setResult] = useState();
+  const handleSubmit = () => {
+    setResult(numRef.current.value * numRef.current.value);
+  };
+  return (
+    <div>
+      <p>
+        <input type="number" ref={numRef} />
+      </p>
+      <p>
+        <button onClick={handleSubmit}>Submit</button>
+      </p>
+      <hr />
+      {result}
+    </div>
+  );
 }
+
+// import React from "react";
+// import { useState } from "react";
+// export default function App() {
+//   const [number, setNumber] = useState();
+//   const [result, setResult] = useState();
+//   const handleSubmit = () => {
+//     setResult(number * number);
+//   };
+//   return (
+//     <div>
+//       <p>
+//         <input type="number"
+//         onChange={(e) => setNumber(e.target.value)} />
+//       </p>
+//       <p>
+//         <button onClick={handleSubmit}>Submit</button>
+//       </p>
+//       <hr />
+//       {result}
+//     </div>
+//   );
+// }
+
+//updating state
+// import React from "react";
+// import { useState } from "react";
+// export default function App() {
+//   const [score, setScore] = useState(0);
+//   return (
+//     <div>
+//       {score}
+//       <p>
+//         <button onClick={() => setScore(score + 1)}>
+//           Update
+//         </button>
+//       </p>
+//     </div>
+//   );
+// }
+
+//usestate intro
+// import React from "react";
+// import { useState } from "react";
+// export default function App() {
+//   const [score, setScore] = useState(0);
+//     return <div>{score}</div>;
+// }
+
+//rendering array of objects
+// import React from "react";
+// export default function App() {
+//   const products = [
+//     { id: 1, name: "Laptop", price: 45000 },
+//     { id: 2, name: "Desktop", price: 25000 },
+//     { id: 3, name: "Keyboard", price: 1000 },
+//   ];
+//   return (
+//     <div>
+//       {products.map((product) => (
+//         <li key={product.id}>
+//           {product.name}-{product.price}
+//         </li>
+//       ))}
+//     </div>
+//   );
+// }
+
+//rendering array
+// import React from "react";
+// export default function App() {
+//   const products = ["Laptop", "Desktop", "Keyboard"];
+//   return (
+//     <div>
+//       {products.map((product) => (
+//         <li key={product}>{product}</li>
+//       ))}
+//     </div>
+//   );
+// }
+
+//conditional renderig using && operator
+// import React from "react";
+// function Pass() {
+//   return <div>Pass</div>;
+// }
+// export default function App() {
+//   let score = 50;
+//   return <div>{score > 40 && <Pass />}</div>;
+// }
 
 //conditional rendering using ternary operator
 // import React from "react";
