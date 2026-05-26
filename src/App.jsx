@@ -5,6 +5,9 @@ export default function App() {
   const handleSubmit = () => {
     setUsers([...users, user]);
   };
+  const handleDelete = (email) => {
+    setUsers(users.filter((user) => user.email !== email));
+  };
   return (
     <div>
       <h3>Registration Form</h3>
@@ -33,9 +36,13 @@ export default function App() {
         <button onClick={handleSubmit}>Submit</button>
       </p>
       <hr />
-      {users && users.map(user=>(
-        <li>{user.name}-{user.email}-{user.password}</li>
-      ))}
+      {users &&
+        users.map((user) => (
+          <li>
+            {user.name}-{user.email}-{user.password}-
+            <button onClick={() => handleDelete(user.email)}>Delete</button>
+          </li>
+        ))}
     </div>
   );
 }
