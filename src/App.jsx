@@ -1,24 +1,63 @@
-import React from "react";
-import { useRef,useState } from "react";
+import React, { useState } from "react";
 export default function App() {
-  const numRef = useRef();
-  const [result, setResult] = useState();
-  const handleSubmit = () => {
-    setResult(numRef.current.value * numRef.current.value);
-  };
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [message, setMessage] = useState();
+  const handleLogin = () => {
+    if (email==="john@gmail.com" && password === "1234"){
+      setMessage("Welcome!")
+    }
+    else{
+      setMessage("Access Denied")
+    }
+  }
   return (
     <div>
+      <h3>Login Form</h3>
       <p>
-        <input type="number" ref={numRef} />
+        <input
+          type="text"
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        />
       </p>
       <p>
-        <button onClick={handleSubmit}>Submit</button>
+        <input
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
+      </p>
+      <p>
+        <button onClick={handleLogin}>Login</button>
       </p>
       <hr />
-      {result}
+      {message}
     </div>
   );
 }
+
+// import React from "react";
+// import { useRef,useState } from "react";
+// export default function App() {
+//   const numRef = useRef();
+//   const [result, setResult] = useState();
+//   const handleSubmit = () => {
+//     setResult(numRef.current.value * numRef.current.value);
+//   };
+//   return (
+//     <div>
+//       <p>
+//         <input type="number" ref={numRef} />
+//       </p>
+//       <p>
+//         <button onClick={handleSubmit}>Submit</button>
+//       </p>
+//       <hr />
+//       {result}
+//     </div>
+//   );
+// }
 
 // import React from "react";
 // import { useState } from "react";
