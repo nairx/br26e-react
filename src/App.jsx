@@ -1,42 +1,105 @@
-import React, { useState } from "react";
+import React from 'react'
 export default function App() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [message, setMessage] = useState();
-  const handleLogin = () => {
-    if (email==="john@gmail.com" && password === "1234"){
-      setMessage("Welcome!")
-    }
-    else{
-      setMessage("Access Denied")
-    }
-  }
   return (
     <div>
-      <h3>Login Form</h3>
+      <h3>Registration Form</h3>
       <p>
-        <input
-          type="text"
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
+        <input type="text" placeholder='Name' />
       </p>
       <p>
-        <input
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
+        <input type="text" placeholder='Email' />
       </p>
       <p>
-        <button onClick={handleLogin}>Login</button>
+        <input type="password" placeholder='Password' />
+      </p>
+      <p>
+        <button>Submit</button>
       </p>
       <hr />
-      {message}
+
     </div>
-  );
+  )
 }
 
+
+
+// import React, { useState } from "react";
+// export default function App() {
+//   const [user, setUser] = useState({});
+//   const [message, setMessage] = useState();
+//   const handleLogin = () => {
+//     if (user.email === "john@gmail.com" && user.password === "1234") {
+//       setMessage("Welcome!");
+//     } else {
+//       setMessage("Access Denied");
+//     }
+//   };
+//   return (
+//     <div>
+//       <h3>Login Form</h3>
+//       <p>
+//         <input
+//           type="text"
+//           onChange={(e) => setUser({ ...user, email: e.target.value })}
+//           placeholder="Email"
+//         />
+//       </p>
+//       <p>
+//         <input
+//           type="password"
+//           onChange={(e) => setUser({ ...user, password: e.target.value })}
+//           placeholder="Password"
+//         />
+//       </p>
+//       <p>
+//         <button onClick={handleLogin}>Login</button>
+//       </p>
+//       <hr />
+//       {message}
+//     </div>
+//   );
+// }
+
+// import React, { useState } from "react";
+// export default function App() {
+//   const [email, setEmail] = useState();
+//   const [password, setPassword] = useState();
+//   const [message, setMessage] = useState();
+//   const handleLogin = () => {
+//     if (email==="john@gmail.com" && password === "1234"){
+//       setMessage("Welcome!")
+//     }
+//     else{
+//       setMessage("Access Denied")
+//     }
+//   }
+//   return (
+//     <div>
+//       <h3>Login Form</h3>
+//       <p>
+//         <input
+//           type="text"
+//           onChange={(e) => setEmail(e.target.value)}
+//           placeholder="Email"
+//         />
+//       </p>
+//       <p>
+//         <input
+//           type="password"
+//           onChange={(e) => setPassword(e.target.value)}
+//           placeholder="Password"
+//         />
+//       </p>
+//       <p>
+//         <button onClick={handleLogin}>Login</button>
+//       </p>
+//       <hr />
+//       {message}
+//     </div>
+//   );
+// }
+
+//uncontrolled component
 // import React from "react";
 // import { useRef,useState } from "react";
 // export default function App() {
