@@ -1,8 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, createContext, useContext } from "react";
 
-function Products() {}
+const AppContext = createContext();
 
-function Cart() {}
+function Products() {
+  const { products, cart, setCart } = useContext(AppContext);
+  const addToCart = (product) => {
+    setCart([...cart, {...product,quantity:1}]);
+  };
+  return (
+    <div>
+      <h3>Products</h3>
+      <ol>
+        {products &&
+          products.map((product) => (
+            <li key={product.id}>
+              {product.name}-{product.price}-
+              <button onClick={() => addToCart(product)}>Add to Cart</button>
+            </li>
+          ))}
+      </ol>
+    </div>
+  );
+}
+
+function Cart() {
+  const { cart, setCart } = useContext(AppContext);
+  const orderValue = cart.reduce((sum,item)=>sum+(item.price*item.quantity),0)
+  return (
+    <div>
+      <h3>My Cart</h3>
+      {cart && cart.map((item) => <li key={item.id}>{item.name}-{item.price}-<button>-</button>{item.quantity}-<button>+</button>{item.quantity*item.price}</li>)}
+    <p>
+      Order Value:{orderValue}
+    </p>
+    </div>
+  );
+}
 
 export default function App() {
   const [products, setProducts] = useState([
@@ -11,7 +44,13 @@ export default function App() {
     { id: 3, name: "Product 3", price: 15 },
   ]);
   const [cart, setCart] = useState([]);
-  return <div>App</div>;
+  return (
+    <AppContext.Provider value={{ products, setProducts, cart, setCart }}>
+      <Products />
+      <hr />
+      <Cart />
+    </AppContext.Provider>
+  );
 }
 
 // import React, { useState,createContext,useContext } from 'react'
