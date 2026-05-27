@@ -1,146 +1,155 @@
-import React, { useState, createContext, useContext } from "react";
-
-const AppContext = createContext();
-
-function Products() {
-  const { products, cart, setCart } = useContext(AppContext);
-  const addToCart = (product) => {
-    const found = cart.find((item) => item.id === product.id);
-    !found && setCart([...cart, { ...product, quantity: 1 }]);
-  };
-  return (
-    <div>
-      <h3>Products</h3>
-      <ol>
-        {products &&
-          products.map((product) => (
-            <li key={product.id}>
-              {product.name}-{product.price}-
-              <button onClick={() => addToCart(product)}>Add to Cart</button>
-            </li>
-          ))}
-      </ol>
-    </div>
-  );
-}
-
-function Cart() {
-  const { cart, setCart, orders,setOrders } = useContext(AppContext);
-  const orderValue = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0,
-  );
-  const increment = (id) => {
-    setCart(
-      cart.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
-      ),
-    );
-  };
-
-  const decrement = (id) => {
-    setCart(
-      cart
-        .map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity - 1 } : item,
-        )
-        .filter((item) => item.quantity > 0),
-    );
-  };
-
-  const handleDelete = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
-  };
-
-  const placeOrder = () => {
-    const dt = new Date()
-    const myOrder = {
-      orderDate:dt.getTime(),
-      items: cart,
-      orderValue: orderValue,
-      status:"Pending"
-    };
-    setOrders([...orders, myOrder]);
-    setCart([]);
-  };
-  return (
-    <div>
-      <h3>My Cart</h3>
-
-      {cart.length > 0 ? (
-        <>
-          <ol>
-            {cart &&
-              cart.map((item) => (
-                <li key={item.id}>
-                  {item.name}-{item.price}-
-                  <button onClick={() => decrement(item.id)}>-</button>
-                  {item.quantity}
-                  <button onClick={() => increment(item.id)}>+</button>
-                  {item.quantity * item.price}-
-                  <button onClick={() => handleDelete(item.id)}>Delete</button>
-                </li>
-              ))}
-          </ol>
-          <p>Order Value:{orderValue}</p>
-          <p>
-            <button onClick={placeOrder}>Place Order</button>
-          </p>
-        </>
-      ) : (
-        <h4>Your cart is empty.</h4>
-      )}
-    </div>
-  );
-}
-
-function Order() {
-  const { orders } = useContext(AppContext);
-  return (
-    <div>
-      <h3>My Orders</h3>
-      <ol>
-      {orders &&
-        orders.map((order) => (
-          <li>
-            {order.orderDate}-{order.items.length}-{order.orderValue}-{order.status}
-          </li>
-        ))}
-        </ol>
-    </div>
-  );
-}
-
+import React from "react";
+import { useRef } from "react";
 export default function App() {
-  const [products, setProducts] = useState([
-    { id: 1, name: "Product 1", price: 35 },
-    { id: 2, name: "Product 2", price: 25 },
-    { id: 3, name: "Product 3", price: 15 },
-  ]);
-  const [cart, setCart] = useState([]);
-  const [orders, setOrders] = useState([]);
+  const colorRef = useRef();
+  const divRef = useRef();
+  const handleSubmit = () => {
+    divRef.current.style.color = colorRef.current.value;
+  };
   return (
-    <AppContext.Provider
-      value={{ products, setProducts, cart, setCart, orders, setOrders }}
-    >
-      <Products />
-      <hr />
-      <Cart />
-      <hr />
-      <Order />
-    </AppContext.Provider>
+    <div>
+      <input type="text" ref={colorRef} />
+      <button onClick={handleSubmit}>Submit</button>
+      <div ref={divRef}>Hello World</div>
+    </div>
   );
 }
+
+//Shopping Cart
+// import React, { useState, createContext, useContext } from "react";
+// const AppContext = createContext();
+// function Products() {
+//   const { products, cart, setCart } = useContext(AppContext);
+//   const addToCart = (product) => {
+//     const found = cart.find((item) => item.id === product.id);
+//     !found && setCart([...cart, { ...product, quantity: 1 }]);
+//   };
+//   return (
+//     <div>
+//       <h3>Products</h3>
+//       <ol>
+//         {products &&
+//           products.map((product) => (
+//             <li key={product.id}>
+//               {product.name}-{product.price}-
+//               <button onClick={() => addToCart(product)}>Add to Cart</button>
+//             </li>
+//           ))}
+//       </ol>
+//     </div>
+//   );
+// }
+// function Cart() {
+//   const { cart, setCart, orders,setOrders } = useContext(AppContext);
+//   const orderValue = cart.reduce(
+//     (sum, item) => sum + item.price * item.quantity,
+//     0,
+//   );
+//   const increment = (id) => {
+//     setCart(
+//       cart.map((item) =>
+//         item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+//       ),
+//     );
+//   };
+//   const decrement = (id) => {
+//     setCart(
+//       cart
+//         .map((item) =>
+//           item.id === id ? { ...item, quantity: item.quantity - 1 } : item,
+//         )
+//         .filter((item) => item.quantity > 0),
+//     );
+//   };
+//   const handleDelete = (id) => {
+//     setCart(cart.filter((item) => item.id !== id));
+//   };
+//   const placeOrder = () => {
+//     const dt = new Date()
+//     const myOrder = {
+//       orderDate:dt.getTime(),
+//       items: cart,
+//       orderValue: orderValue,
+//       status:"Pending"
+//     };
+//     setOrders([...orders, myOrder]);
+//     setCart([]);
+//   };
+//   return (
+//     <div>
+//       <h3>My Cart</h3>
+//       {cart.length > 0 ? (
+//         <>
+//           <ol>
+//             {cart &&
+//               cart.map((item) => (
+//                 <li key={item.id}>
+//                   {item.name}-{item.price}-
+//                   <button onClick={() => decrement(item.id)}>-</button>
+//                   {item.quantity}
+//                   <button onClick={() => increment(item.id)}>+</button>
+//                   {item.quantity * item.price}-
+//                   <button onClick={() => handleDelete(item.id)}>Delete</button>
+//                 </li>
+//               ))}
+//           </ol>
+//           <p>Order Value:{orderValue}</p>
+//           <p>
+//             <button onClick={placeOrder}>Place Order</button>
+//           </p>
+//         </>
+//       ) : (
+//         <h4>Your cart is empty.</h4>
+//       )}
+//     </div>
+//   );
+// }
+
+// function Order() {
+//   const { orders } = useContext(AppContext);
+//   return (
+//     <div>
+//       <h3>My Orders</h3>
+//       <ol>
+//       {orders &&
+//         orders.map((order) => (
+//           <li>
+//             {order.orderDate}-{order.items.length}-{order.orderValue}-{order.status}
+//           </li>
+//         ))}
+//         </ol>
+//     </div>
+//   );
+// }
+
+// export default function App() {
+//   const [products, setProducts] = useState([
+//     { id: 1, name: "Product 1", price: 35 },
+//     { id: 2, name: "Product 2", price: 25 },
+//     { id: 3, name: "Product 3", price: 15 },
+//   ]);
+//   const [cart, setCart] = useState([]);
+//   const [orders, setOrders] = useState([]);
+//   return (
+//     <AppContext.Provider
+//       value={{ products, setProducts, cart, setCart, orders, setOrders }}
+//     >
+//       <Products />
+//       <hr />
+//       <Cart />
+//       <hr />
+//       <Order />
+//     </AppContext.Provider>
+//   );
+// }
+/////////////////////////////////
 
 // import React, { useState,createContext,useContext } from 'react'
-
 // const AppContext = createContext()
-
 // function Child1(){
 //   const {count,setCount} = useContext(AppContext)
 //   return <div>Child 1-{count}-<button onClick={()=>setCount(count+1)}>Update</button></div>
 // }
-
 // function Child2(){
 //   const {count,setCount} = useContext(AppContext)
 //   return <div>Child 2-{count}-<button onClick={()=>setCount(count+1)}>Update</button></div>
