@@ -25,7 +25,7 @@ function Products() {
 }
 
 function Cart() {
-  const { cart, setCart } = useContext(AppContext);
+  const { cart, setCart, orders,setOrders } = useContext(AppContext);
   const orderValue = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
@@ -52,6 +52,17 @@ function Cart() {
     setCart(cart.filter((item) => item.id !== id));
   };
 
+  const placeOrder = () => {
+    const dt = new Date()
+    const myOrder = {
+      orderDate:dt.getTime(),
+      items: cart,
+      orderValue: orderValue,
+      status:"Pending"
+    };
+    setOrders([...orders, myOrder]);
+    setCart([]);
+  };
   return (
     <div>
       <h3>My Cart</h3>
@@ -73,7 +84,7 @@ function Cart() {
           </ol>
           <p>Order Value:{orderValue}</p>
           <p>
-            <button>Place Order</button>
+            <button onClick={placeOrder}>Place Order</button>
           </p>
         </>
       ) : (
@@ -84,9 +95,18 @@ function Cart() {
 }
 
 function Order() {
+  const { orders } = useContext(AppContext);
   return (
     <div>
       <h3>My Orders</h3>
+      <ol>
+      {orders &&
+        orders.map((order) => (
+          <li>
+            {order.orderDate}-{order.items.length}-{order.orderValue}-{order.status}
+          </li>
+        ))}
+        </ol>
     </div>
   );
 }
@@ -100,7 +120,9 @@ export default function App() {
   const [cart, setCart] = useState([]);
   const [orders, setOrders] = useState([]);
   return (
-    <AppContext.Provider value={{ products, setProducts, cart, setCart,orders,setOrders }}>
+    <AppContext.Provider
+      value={{ products, setProducts, cart, setCart, orders, setOrders }}
+    >
       <Products />
       <hr />
       <Cart />
