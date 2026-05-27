@@ -72,10 +72,21 @@ function Cart() {
               ))}
           </ol>
           <p>Order Value:{orderValue}</p>
+          <p>
+            <button>Place Order</button>
+          </p>
         </>
       ) : (
         <h4>Your cart is empty.</h4>
       )}
+    </div>
+  );
+}
+
+function Order() {
+  return (
+    <div>
+      <h3>My Orders</h3>
     </div>
   );
 }
@@ -87,11 +98,14 @@ export default function App() {
     { id: 3, name: "Product 3", price: 15 },
   ]);
   const [cart, setCart] = useState([]);
+  const [orders, setOrders] = useState([]);
   return (
-    <AppContext.Provider value={{ products, setProducts, cart, setCart }}>
+    <AppContext.Provider value={{ products, setProducts, cart, setCart,orders,setOrders }}>
       <Products />
       <hr />
       <Cart />
+      <hr />
+      <Order />
     </AppContext.Provider>
   );
 }
