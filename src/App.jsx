@@ -5,7 +5,8 @@ const AppContext = createContext();
 function Products() {
   const { products, cart, setCart } = useContext(AppContext);
   const addToCart = (product) => {
-    setCart([...cart, { ...product, quantity: 1 }]);
+    const found = cart.find((item) => item.id === product.id);
+    !found && setCart([...cart, { ...product, quantity: 1 }]);
   };
   return (
     <div>
@@ -29,18 +30,52 @@ function Cart() {
     (sum, item) => sum + item.price * item.quantity,
     0,
   );
+  const increment = (id) => {
+    setCart(
+      cart.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+      ),
+    );
+  };
+
+  const decrement = (id) => {
+    setCart(
+      cart
+        .map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item,
+        )
+        .filter((item) => item.quantity > 0),
+    );
+  };
+
+  const handleDelete = (id) => {
+    setCart(cart.filter((item) => item.id !== id));
+  };
+
   return (
     <div>
       <h3>My Cart</h3>
-      {cart &&
-        cart.map((item) => (
-          <li key={item.id}>
-            {item.name}-{item.price}-<button>-</button>
-            {item.quantity}-<button>+</button>
-            {item.quantity * item.price}
-          </li>
-        ))}
-      <p>Order Value:{orderValue}</p>
+
+      {cart.length > 0 ? (
+        <>
+          <ol>
+            {cart &&
+              cart.map((item) => (
+                <li key={item.id}>
+                  {item.name}-{item.price}-
+                  <button onClick={() => decrement(item.id)}>-</button>
+                  {item.quantity}
+                  <button onClick={() => increment(item.id)}>+</button>
+                  {item.quantity * item.price}-
+                  <button onClick={() => handleDelete(item.id)}>Delete</button>
+                </li>
+              ))}
+          </ol>
+          <p>Order Value:{orderValue}</p>
+        </>
+      ) : (
+        <h4>Your cart is empty.</h4>
+      )}
     </div>
   );
 }
