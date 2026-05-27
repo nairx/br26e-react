@@ -1,29 +1,42 @@
-import React, { useState,createContext,useContext } from 'react'
+import React, { useState } from "react";
 
-const AppContext = createContext()
+function Products() {}
 
-function Child1(){
-  const {count,setCount} = useContext(AppContext)
-  return <div>Child 1-{count}-<button onClick={()=>setCount(count+1)}>Update</button></div>
-}
-
-function Child2(){
-  const {count,setCount} = useContext(AppContext)
-  return <div>Child 2-{count}-<button onClick={()=>setCount(count+1)}>Update</button></div>
-}
-
+function Cart() {}
 
 export default function App() {
-  const [count,setCount] = useState(0)
-  return (
-    <AppContext.Provider value={{count,setCount}}>
-      <Child1/>
-      <Child2/>
-    </AppContext.Provider>
-  )
+  const [products, setProducts] = useState([
+    { id: 1, name: "Product 1", price: 35 },
+    { id: 2, name: "Product 2", price: 25 },
+    { id: 3, name: "Product 3", price: 15 },
+  ]);
+  const [cart, setCart] = useState([]);
+  return <div>App</div>;
 }
 
+// import React, { useState,createContext,useContext } from 'react'
 
+// const AppContext = createContext()
+
+// function Child1(){
+//   const {count,setCount} = useContext(AppContext)
+//   return <div>Child 1-{count}-<button onClick={()=>setCount(count+1)}>Update</button></div>
+// }
+
+// function Child2(){
+//   const {count,setCount} = useContext(AppContext)
+//   return <div>Child 2-{count}-<button onClick={()=>setCount(count+1)}>Update</button></div>
+// }
+
+// export default function App() {
+//   const [count,setCount] = useState(0)
+//   return (
+//     <AppContext.Provider value={{count,setCount}}>
+//       <Child1/>
+//       <Child2/>
+//     </AppContext.Provider>
+//   )
+// }
 
 // import React, { useState } from 'react'
 // export default function App() {
@@ -46,8 +59,6 @@ export default function App() {
 //     </div>
 //   )
 // }
-
-
 
 // import React, { useState } from "react";
 // export default function App() {
