@@ -1,28 +1,78 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-export default function App() {
-  const [price, setPrice] = useState(0);
-  const priceRef = useRef();
-  const prevPrice = useRef();
-
+function Child1() {
+  const [count, setCount] = useState(0);
   useEffect(() => {
-    if (prevPrice.current > price) {
-      priceRef.current.style.color = "red";
-    } else {
-      priceRef.current.style.color = "green";
-    }
-    prevPrice.current = price;
-  }, [price]);
-
+    console.log("Child1 mounted");
+    return () => {
+      console.log("Child1 umounted");
+    };
+  }, []);
+  const handleUpdate = () => {
+    setCount(count+1)
+    console.log("Child1 updated")
+  }
   return (
     <div>
-      <p ref={priceRef}>SBI:{price}</p>
-      <p>
-        <input type="number" onChange={(e) => setPrice(e.target.value)} />
-      </p>
+      Child 1<p>{count}</p>
+      <button onClick={handleUpdate}>Update</button>
     </div>
   );
 }
+
+function Child2() {
+   const [count, setCount] = useState(0);
+  useEffect(() => {
+    console.log("Child2 mounted");
+    return () => {
+      console.log("Child2 umounted");
+    };
+  }, []);
+    const handleUpdate = () => {
+    setCount(count+1)
+    console.log("Child2 updated")
+  }
+  return <div>Child 2
+    {count}
+ <button onClick={handleUpdate}>Update</button>
+
+  </div>;
+}
+
+export default function App() {
+  const [flag, setFlag] = useState(true);
+  return (
+    <div>
+      <button onClick={() => setFlag(true)}>Child 1</button>
+      <button onClick={() => setFlag(false)}>Child 2</button>
+      {flag ? <Child1 /> : <Child2 />}
+    </div>
+  );
+}
+
+// import React, { useState, useRef, useEffect } from "react";
+// export default function App() {
+//   const [price, setPrice] = useState(0);
+//   const priceRef = useRef();
+//   const prevPrice = useRef();
+//   useEffect(() => {
+//     if (prevPrice.current > price) {
+//       priceRef.current.style.color = "red";
+//     } else {
+//       priceRef.current.style.color = "green";
+//     }
+//     prevPrice.current = price;
+//   }, [price]);
+
+//   return (
+//     <div>
+//       <p ref={priceRef}>SBI:{price}</p>
+//       <p>
+//         <input type="number" onChange={(e) => setPrice(e.target.value)} />
+//       </p>
+//     </div>
+//   );
+// }
 
 // import React, { useState } from "react";
 // export default function App() {
