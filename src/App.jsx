@@ -1,49 +1,62 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [run, setRun] = useState(0);
-  const [wicket, setWicket] = useState(0);
-  const [message, setMessage] = useState();
-
-  const updateRun = () => {
-    if (wicket < 11) {
-      setRun(run + 1);
-      setMessage("Well Done!");
-    }
-  };
-
-  const updateWicket = () => {
-    if (wicket < 11) {
-      setWicket(wicket + 1);
-      setMessage("Better Luck Next Time");
-    } else {
-      setMessage("Game Over!");
-    }
-  };
-
+  const [price, setPrice] = useState(0);
   return (
     <div>
-      <h2>Cricket Score Board</h2>
-      <div style={{ display: "flex" }}>
-        <div style={{backgroundColor:'gray',width:'150px'}}>
-          <div>
-            {run}
-            <p>
-              <button onClick={updateRun}>Run</button>
-            </p>
-          </div>
-          <div>
-            {wicket}
-            <p>
-              <button onClick={updateWicket}>Wicket</button>
-            </p>
-          </div>
-        </div>
-        <div>{message}</div>
-      </div>
+      SBI:{price}
+      <p>
+        <input type="number" onChange={(e)=>setPrice(e.target.value)} />
+      </p>
     </div>
   );
 }
+
+// import React, { useState } from "react";
+// export default function App() {
+//   const [run, setRun] = useState(0);
+//   const [wicket, setWicket] = useState(0);
+//   const [message, setMessage] = useState();
+
+//   const updateRun = () => {
+//     if (wicket < 11) {
+//       setRun(run + 1);
+//       setMessage("Well Done!");
+//     }
+//   };
+
+//   const updateWicket = () => {
+//     if (wicket < 11) {
+//       setWicket(wicket + 1);
+//       setMessage("Better Luck Next Time");
+//     } else {
+//       setMessage("Game Over!");
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <h2>Cricket Score Board</h2>
+//       <div style={{ display: "flex" }}>
+//         <div style={{backgroundColor:'gray',width:'150px'}}>
+//           <div>
+//             {run}
+//             <p>
+//               <button onClick={updateRun}>Run</button>
+//             </p>
+//           </div>
+//           <div>
+//             {wicket}
+//             <p>
+//               <button onClick={updateWicket}>Wicket</button>
+//             </p>
+//           </div>
+//         </div>
+//         <div>{message}</div>
+//       </div>
+//     </div>
+//   );
+// }
 
 // import React from "react";
 // import { useRef } from "react";
