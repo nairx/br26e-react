@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 export default function App() {
   const [price, setPrice] = useState(0);
+  const priceRef = useRef();
+  const prevPrice = useRef();
+
+  useEffect(() => {
+    if (prevPrice.current > price) {
+      priceRef.current.style.color = "red";
+    } else {
+      priceRef.current.style.color = "green";
+    }
+    prevPrice.current = price;
+  }, [price]);
+
   return (
     <div>
-      SBI:{price}
+      <p ref={priceRef}>SBI:{price}</p>
       <p>
-        <input type="number" onChange={(e)=>setPrice(e.target.value)} />
+        <input type="number" onChange={(e) => setPrice(e.target.value)} />
       </p>
     </div>
   );
