@@ -1,51 +1,102 @@
-import React, { useState } from "react";
-export default function App() {
-  const [user, setUser] = useState({});
-  const [users, setUsers] = useState([]);
-  const handleSubmit = () => {
-    setUsers([...users, user]);
-  };
-  const handleDelete = (email) => {
-    setUsers(users.filter((user) => user.email !== email));
-  };
-  return (
-    <div>
-      <h3>Registration Form</h3>
-      <p>
-        <input
-          type="text"
-          onChange={(e) => setUser({ ...user, name: e.target.value })}
-          placeholder="Name"
-        />
-      </p>
-      <p>
-        <input
-          type="text"
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-          placeholder="Email"
-        />
-      </p>
-      <p>
-        <input
-          type="password"
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-          placeholder="Password"
-        />
-      </p>
-      <p>
-        <button onClick={handleSubmit}>Submit</button>
-      </p>
-      <hr />
-      {users &&
-        users.map((user) => (
-          <li>
-            {user.name}-{user.email}-{user.password}-
-            <button onClick={() => handleDelete(user.email)}>Delete</button>
-          </li>
-        ))}
-    </div>
-  );
+import React, { useState,createContext,useContext } from 'react'
+
+const AppContext = createContext()
+
+function Child1(){
+  const {count,setCount} = useContext(AppContext)
+  return <div>Child 1-{count}-<button onClick={()=>setCount(count+1)}>Update</button></div>
 }
+
+function Child2(){
+  const {count,setCount} = useContext(AppContext)
+  return <div>Child 2-{count}-<button onClick={()=>setCount(count+1)}>Update</button></div>
+}
+
+
+export default function App() {
+  const [count,setCount] = useState(0)
+  return (
+    <AppContext.Provider value={{count,setCount}}>
+      <Child1/>
+      <Child2/>
+    </AppContext.Provider>
+  )
+}
+
+
+
+// import React, { useState } from 'react'
+// export default function App() {
+//   const [count,setCount] = useState(0)
+//   // let count = 1
+//   // const handleUpdate = () => {
+//   //   count++
+//   //   console.log(count)
+//   // }
+//    const handleUpdate = () => {
+//     setCount(count+1)
+//     console.log(count)
+//   }
+//   return (
+//     <div>
+// {count}
+// <p>
+//   <button onClick={handleUpdate}>Update</button>
+// </p>
+//     </div>
+//   )
+// }
+
+
+
+// import React, { useState } from "react";
+// export default function App() {
+//   const [user, setUser] = useState({});
+//   const [users, setUsers] = useState([]);
+//   const handleSubmit = () => {
+//     setUsers([...users, user]);
+//   };
+//   const handleDelete = (email) => {
+//     setUsers(users.filter((user) => user.email !== email));
+//   };
+//   return (
+//     <div>
+//       <h3>Registration Form</h3>
+//       <p>
+//         <input
+//           type="text"
+//           onChange={(e) => setUser({ ...user, name: e.target.value })}
+//           placeholder="Name"
+//         />
+//       </p>
+//       <p>
+//         <input
+//           type="text"
+//           onChange={(e) => setUser({ ...user, email: e.target.value })}
+//           placeholder="Email"
+//         />
+//       </p>
+//       <p>
+//         <input
+//           type="password"
+//           onChange={(e) => setUser({ ...user, password: e.target.value })}
+//           placeholder="Password"
+//         />
+//       </p>
+//       <p>
+//         <button onClick={handleSubmit}>Submit</button>
+//       </p>
+//       <hr />
+//       {users &&
+//         users.map((user) => (
+//           <li>
+//             {user.name}-{user.email}-{user.password}-
+//             <button onClick={() => handleDelete(user.email)}>Delete</button>
+//           </li>
+//         ))}
+//     </div>
+//   );
+// }
 
 // import React, { useState } from "react";
 // export default function App() {
