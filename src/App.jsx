@@ -1,54 +1,77 @@
-import React, { useEffect, useState } from "react";
-
-function Child1() {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    console.log("Child1 mounted");
-    return () => {
-      console.log("Child1 umounted");
-    };
-  }, []);
-  const handleUpdate = () => {
-    setCount(count+1)
-    console.log("Child1 updated")
-  }
-  return (
-    <div>
-      Child 1<p>{count}</p>
-      <button onClick={handleUpdate}>Update</button>
-    </div>
-  );
-}
-
-function Child2() {
-   const [count, setCount] = useState(0);
-  useEffect(() => {
-    console.log("Child2 mounted");
-    return () => {
-      console.log("Child2 umounted");
-    };
-  }, []);
-    const handleUpdate = () => {
-    setCount(count+1)
-    console.log("Child2 updated")
-  }
-  return <div>Child 2
-    {count}
- <button onClick={handleUpdate}>Update</button>
-
-  </div>;
-}
+import React, { useState, useMemo } from "react";
 
 export default function App() {
-  const [flag, setFlag] = useState(true);
+  const [count, setCount] = useState(0);
+  const [number, setNumber] = useState(0);
+  const orderValue = () => {
+    console.log("Order Value calculated");
+    return number * 100;
+  };
+  const result = useMemo(() => orderValue(), [number]);
   return (
     <div>
-      <button onClick={() => setFlag(true)}>Child 1</button>
-      <button onClick={() => setFlag(false)}>Child 2</button>
-      {flag ? <Child1 /> : <Child2 />}
+      Result:{result}
+      <p>Count:{count}</p>
+      <p>
+        <button onClick={() => setCount(count + 1)}>Update Count</button>
+      </p>
+      <p>Number:{number}</p>
+      <p>
+        <button onClick={() => setNumber(number + 1)}>Update Number</button>
+      </p>
     </div>
   );
 }
+
+// import React, { useEffect, useState } from "react";
+// function Child1() {
+//   const [count, setCount] = useState(0);
+//   useEffect(() => {
+//     console.log("Child1 mounted");
+//     return () => {
+//       console.log("Child1 umounted");
+//     };
+//   }, []);
+//   const handleUpdate = () => {
+//     setCount(count+1)
+//     console.log("Child1 updated")
+//   }
+//   return (
+//     <div>
+//       Child 1<p>{count}</p>
+//       <button onClick={handleUpdate}>Update</button>
+//     </div>
+//   );
+// }
+// function Child2() {
+//    const [count, setCount] = useState(0);
+//   useEffect(() => {
+//     console.log("Child2 mounted");
+//     return () => {
+//       console.log("Child2 umounted");
+//     };
+//   }, []);
+//     const handleUpdate = () => {
+//     setCount(count+1)
+//     console.log("Child2 updated")
+//   }
+//   return <div>Child 2
+//     {count}
+//  <button onClick={handleUpdate}>Update</button>
+
+//   </div>;
+// }
+
+// export default function App() {
+//   const [flag, setFlag] = useState(true);
+//   return (
+//     <div>
+//       <button onClick={() => setFlag(true)}>Child 1</button>
+//       <button onClick={() => setFlag(false)}>Child 2</button>
+//       {flag ? <Child1 /> : <Child2 />}
+//     </div>
+//   );
+// }
 
 // import React, { useState, useRef, useEffect } from "react";
 // export default function App() {
