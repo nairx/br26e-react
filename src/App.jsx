@@ -2,30 +2,63 @@ import React from "react";
 import { useReducer } from "react";
 function reducer(state, action) {
   switch (action.type) {
-    case "increment":
-      return { count: state.count + 1 };
-    case "decrement":
-      return { count: state.count - 1 };
+    case "deleteProduct":
+      return {products:state.products.filter(item => item.id !== action.payload)}
     default:
       return state;
   }
 }
 export default function App() {
-  const [state, dispatch] = useReducer(reducer, { count: 0 });
-  const increment = () => {
-    dispatch({ type: "increment" });
-  };
-  const decrement = () => {
-    dispatch({ type: "decrement" });
+  const [state, dispatch] = useReducer(reducer, {
+    products: [
+      { id: 1, name: "Product 1", price: 35 },
+      { id: 2, name: "Product 2", price: 30 },
+      { id: 3, name: "Product 3", price: 50 },
+    ],
+  });
+  const handleDelete = (id) => {
+    dispatch({ type: "deleteProduct", payload: id });
   };
   return (
     <div>
-      <button onClick={decrement}>-</button>
-      {state.count}
-      <button onClick={increment}>+</button>
+      {state.products.map((product) => (
+        <li>
+          {product.name}-{product.price}-
+          <button onClick={() => handleDelete(product.id)}>Delete</button>
+        </li>
+      ))}
     </div>
   );
 }
+
+// import React from "react";
+// import { useReducer } from "react";
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case "increment":
+//       return { count: state.count + 1 };
+//     case "decrement":
+//       return { count: state.count - 1 };
+//     default:
+//       return state;
+//   }
+// }
+// export default function App() {
+//   const [state, dispatch] = useReducer(reducer, { count: 0 });
+//   const increment = () => {
+//     dispatch({ type: "increment" });
+//   };
+//   const decrement = () => {
+//     dispatch({ type: "decrement" });
+//   };
+//   return (
+//     <div>
+//       <button onClick={decrement}>-</button>
+//       {state.count}
+//       <button onClick={increment}>+</button>
+//     </div>
+//   );
+// }
 
 // import React, { useState, useMemo } from "react";
 // export default function App() {
