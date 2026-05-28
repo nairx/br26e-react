@@ -21,6 +21,12 @@ export default function App() {
   };
   return (
     <div>
+      <p>
+        <input type="number" placeholder="Id" />
+        <input type="text" placeholder="Name" />
+        <input type="number" placeholder="Price" />
+        <button>Add</button>
+      </p>
       {state.products.map((product) => (
         <li>
           {product.name}-{product.price}-
