@@ -1,27 +1,55 @@
-import React, { useState, useMemo } from "react";
-
+import React from "react";
+import { useReducer } from "react";
+function reducer(state, action) {
+  switch (action.type) {
+    case "increment":
+      return { count: state.count + 1 };
+    case "decrement":
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+}
 export default function App() {
-  const [count, setCount] = useState(0);
-  const [number, setNumber] = useState(0);
-  const orderValue = () => {
-    console.log("Order Value calculated");
-    return number * 100;
+  const [state, dispatch] = useReducer(reducer, { count: 0 });
+  const increment = () => {
+    dispatch({ type: "increment" });
   };
-  const result = useMemo(() => orderValue(), [number]);
+  const decrement = () => {
+    dispatch({ type: "decrement" });
+  };
   return (
     <div>
-      Result:{result}
-      <p>Count:{count}</p>
-      <p>
-        <button onClick={() => setCount(count + 1)}>Update Count</button>
-      </p>
-      <p>Number:{number}</p>
-      <p>
-        <button onClick={() => setNumber(number + 1)}>Update Number</button>
-      </p>
+      <button onClick={decrement}>-</button>
+      {state.count}
+      <button onClick={increment}>+</button>
     </div>
   );
 }
+
+// import React, { useState, useMemo } from "react";
+// export default function App() {
+//   const [count, setCount] = useState(0);
+//   const [number, setNumber] = useState(0);
+//   const orderValue = () => {
+//     console.log("Order Value calculated");
+//     return number * 100;
+//   };
+//   const result = useMemo(() => orderValue(), [number]);
+//   return (
+//     <div>
+//       Result:{result}
+//       <p>Count:{count}</p>
+//       <p>
+//         <button onClick={() => setCount(count + 1)}>Update Count</button>
+//       </p>
+//       <p>Number:{number}</p>
+//       <p>
+//         <button onClick={() => setNumber(number + 1)}>Update Number</button>
+//       </p>
+//     </div>
+//   );
+// }
 
 // import React, { useEffect, useState } from "react";
 // function Child1() {
