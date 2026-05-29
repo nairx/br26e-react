@@ -1,24 +1,44 @@
 import React from "react";
-import { useState } from "react";
-import Child from "./Child";
+import { useState,useCallback } from "react";
+import Child1 from "./Child1";
 export default function App() {
   const [count, setCount] = useState(0);
-  const [number,setNumber] = useState(0)
+  const click = useCallback(() => {
+    alert("Hello World");
+  }, []);
   return (
     <div>
-      <Child number={number} />
-      <hr />
       {count}
       <p>
-        <button onClick={()=>setCount(count+1)}>Update Count</button>
+        <button onClick={() => setCount(count + 1)}>Update Count</button>
       </p>
-      {number}
-      <p>
-        <button onClick={()=>setNumber(number+1)}>Update Number</button>
-      </p>
+      <hr />
+      <Child1 click={click} />
     </div>
   );
 }
+
+// import React from "react";
+// import { useState } from "react";
+// import Child from "./Child";
+// export default function App() {
+//   const [count, setCount] = useState(0);
+//   const [number,setNumber] = useState(0)
+//   return (
+//     <div>
+//       <Child number={number} />
+//       <hr />
+//       {count}
+//       <p>
+//         <button onClick={()=>setCount(count+1)}>Update Count</button>
+//       </p>
+//       {number}
+//       <p>
+//         <button onClick={()=>setNumber(number+1)}>Update Number</button>
+//       </p>
+//     </div>
+//   );
+// }
 
 // import React from "react";
 // import { useReducer } from "react";
