@@ -1,22 +1,47 @@
-import React from "react";
-import { useState,useCallback } from "react";
-import Child1 from "./Child1";
+import React, { useEffectEvent, useState } from 'react'
+import { useEffect } from 'react'
 export default function App() {
-  const [count, setCount] = useState(0);
-  const click = useCallback(() => {
-    alert("Hello World");
-  }, []);
+  const [users,setUsers] = useState([])
+  const API = import.meta.env.VITE_API_URL
+  const fetchUsers = async () => {
+    const url = `${API}/users`
+    const res = await fetch(url)
+    const data = await res.json()
+    setUsers(data)
+  }
+  useEffect(()=>{
+    fetchUsers()
+  },[])
   return (
     <div>
-      {count}
-      <p>
-        <button onClick={() => setCount(count + 1)}>Update Count</button>
-      </p>
-      <hr />
-      <Child1 click={click} />
+      {users && users.map(user=>(
+        <li key={user.id}>{user.name}</li>
+      ))}
     </div>
-  );
+  )
 }
+
+
+
+// import React from "react";
+// import { useState,useCallback } from "react";
+// import Child1 from "./Child1";
+// export default function App() {
+//   const [count, setCount] = useState(0);
+//   const click = useCallback(() => {
+//     alert("Hello World");
+//   }, []);
+//   return (
+//     <div>
+//       {count}
+//       <p>
+//         <button onClick={() => setCount(count + 1)}>Update Count</button>
+//       </p>
+//       <hr />
+//       <Child1 click={click} />
+//     </div>
+//   );
+// }
 
 // import React from "react";
 // import { useState } from "react";
