@@ -1,41 +1,63 @@
 import React from "react";
-import { useReducer } from "react";
-function reducer(state, action) {
-  switch (action.type) {
-    case "deleteProduct":
-      return {products:state.products.filter(item => item.id !== action.payload)}
-    default:
-      return state;
-  }
-}
+import { useState } from "react";
+import Child from "./Child";
 export default function App() {
-  const [state, dispatch] = useReducer(reducer, {
-    products: [
-      { id: 1, name: "Product 1", price: 35 },
-      { id: 2, name: "Product 2", price: 30 },
-      { id: 3, name: "Product 3", price: 50 },
-    ],
-  });
-  const handleDelete = (id) => {
-    dispatch({ type: "deleteProduct", payload: id });
-  };
+  const [count, setCount] = useState(0);
+  const [number,setNumber] = useState(0)
   return (
     <div>
+      <Child number={number} />
+      <hr />
+      {count}
       <p>
-        <input type="number" placeholder="Id" />
-        <input type="text" placeholder="Name" />
-        <input type="number" placeholder="Price" />
-        <button>Add</button>
+        <button onClick={()=>setCount(count+1)}>Update Count</button>
       </p>
-      {state.products.map((product) => (
-        <li>
-          {product.name}-{product.price}-
-          <button onClick={() => handleDelete(product.id)}>Delete</button>
-        </li>
-      ))}
+      {number}
+      <p>
+        <button onClick={()=>setNumber(number+1)}>Update Number</button>
+      </p>
     </div>
   );
 }
+
+// import React from "react";
+// import { useReducer } from "react";
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case "deleteProduct":
+//       return {products:state.products.filter(item => item.id !== action.payload)}
+//     default:
+//       return state;
+//   }
+// }
+// export default function App() {
+//   const [state, dispatch] = useReducer(reducer, {
+//     products: [
+//       { id: 1, name: "Product 1", price: 35 },
+//       { id: 2, name: "Product 2", price: 30 },
+//       { id: 3, name: "Product 3", price: 50 },
+//     ],
+//   });
+//   const handleDelete = (id) => {
+//     dispatch({ type: "deleteProduct", payload: id });
+//   };
+//   return (
+//     <div>
+//       <p>
+//         <input type="number" placeholder="Id" />
+//         <input type="text" placeholder="Name" />
+//         <input type="number" placeholder="Price" />
+//         <button>Add</button>
+//       </p>
+//       {state.products.map((product) => (
+//         <li>
+//           {product.name}-{product.price}-
+//           <button onClick={() => handleDelete(product.id)}>Delete</button>
+//         </li>
+//       ))}
+//     </div>
+//   );
+// }
 
 // import React from "react";
 // import { useReducer } from "react";
