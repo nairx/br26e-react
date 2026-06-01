@@ -1,27 +1,46 @@
-import React, { useEffect } from "react";
-import { useState,useDeferredValue } from "react";
+// npm install -D tailwindcss@3 postcss autoprefixer
+// npx tailwindcss init –p
+// Add following in index.css
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
+// in tailwind.config.js update following
+//   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+
+import React from 'react'
+
 export default function App() {
-  const [searchText, setSearchText] = useState();
-  const [photos, setPhotos] = useState([]);
-  const deferredText = useDeferredValue(searchText)
-  fetch("https://jsonplaceholder.typicode.com/photos")
-    .then((res) => res.json())
-    .then((data) =>
-      setPhotos(data.filter((item) => item.title.includes(deferredText))),
-    )
-    .catch((err) => console.log(err));
   return (
-    <div>
-      <input type="text" onChange={(e) => setSearchText(e.target.value)} />
-      {photos &&
-        photos.map((item) => (
-          <li key={item.id}>
-            {item.id}.{item.title}
-          </li>
-        ))}
-    </div>
-  );
+    <div>App</div>
+  )
 }
+
+
+
+// import React, { useEffect } from "react";
+// import { useState,useDeferredValue } from "react";
+// export default function App() {
+//   const [searchText, setSearchText] = useState();
+//   const [photos, setPhotos] = useState([]);
+//   const deferredText = useDeferredValue(searchText)
+//   fetch("https://jsonplaceholder.typicode.com/photos")
+//     .then((res) => res.json())
+//     .then((data) =>
+//       setPhotos(data.filter((item) => item.title.includes(deferredText))),
+//     )
+//     .catch((err) => console.log(err));
+//   return (
+//     <div>
+//       <input type="text" onChange={(e) => setSearchText(e.target.value)} />
+//       {photos &&
+//         photos.map((item) => (
+//           <li key={item.id}>
+//             {item.id}.{item.title}
+//           </li>
+//         ))}
+//     </div>
+//   );
+// }
 
 // import React, { useEffect } from "react";
 // import { useState } from "react";
