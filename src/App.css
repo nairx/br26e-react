@@ -1,3 +1,7 @@
 .class{
     background-color: orange;
 }
+
+.box {
+    @apply bg-red-300 m-3 p-3 w-[300px]
+}

@@ -7,20 +7,40 @@
 // in tailwind.config.js update following
 //   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 
-
 import React from 'react'
 
 export default function App() {
   return (
-    <div className="flex bg-gray-300 justify-center items-center h-[500px]">
-      <div className="bg-red-300 m-3 p-3 w-[300px]">Box1</div>
-      <div className="bg-red-300 m-3 p-3 w-[300px]">Box2</div>
-      <div className="bg-red-300 m-3 p-3 w-[300px]">Box3</div>
+    <div>
+      <h1 className="lg:text-3xl md:text-xl sm:text-sm">This is a heading of chapter 1 of HTML</h1>
     </div>
   )
 }
 
 
+// import React from "react";
+// import "./App.css"
+// export default function App() {
+//   return (
+//     <div className="grid grid-cols-3 gap-3">
+//       <div className="box">Box1</div>
+//       <div className="box">Box2</div>
+//       <div className="box">Box3</div>
+//     </div>
+//   );
+// }
+
+// import React from 'react'
+// import "./App.css"
+// export default function App() {
+//   return (
+//     <div className="flex bg-gray-300 justify-center items-center h-[500px]">
+//       <div className="box">Box1</div>
+//       <div className="box">Box2</div>
+//       <div className="box">Box3</div>
+//     </div>
+//   )
+// }
 
 // import React from "react";
 // export default function App() {
