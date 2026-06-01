@@ -1,27 +1,32 @@
-import React, { useEffectEvent, useState } from 'react'
-import { useEffect } from 'react'
+import React from "react";
+import useFetch from "./useFetch.js";
 export default function App() {
-  const [users,setUsers] = useState([])
-  const API = import.meta.env.VITE_API_URL
-  const fetchUsers = async () => {
-    const url = `${API}/users`
-    const res = await fetch(url)
-    const data = await res.json()
-    setUsers(data)
-  }
-  useEffect(()=>{
-    fetchUsers()
-  },[])
-  return (
-    <div>
-      {users && users.map(user=>(
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </div>
-  )
+  const users = useFetch("https://jsonplaceholder.typicode.com/users");
+  return <div>{users && users.map((user) => <li>{user.name}</li>)}</div>;
 }
 
-
+// import React, { useEffectEvent, useState } from 'react'
+// import { useEffect } from 'react'
+// export default function App() {
+//   const [users,setUsers] = useState([])
+//   const API = import.meta.env.VITE_API_URL
+//   const fetchUsers = async () => {
+//     const url = `${API}/users`
+//     const res = await fetch(url)
+//     const data = await res.json()
+//     setUsers(data)
+//   }
+//   useEffect(()=>{
+//     fetchUsers()
+//   },[])
+//   return (
+//     <div>
+//       {users && users.map(user=>(
+//         <li key={user.id}>{user.name}</li>
+//       ))}
+//     </div>
+//   )
+// }
 
 // import React from "react";
 // import { useState,useCallback } from "react";
