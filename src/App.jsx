@@ -1,23 +1,18 @@
 import React, { useEffect } from "react";
-import { useState } from "react";
-import { useTransition } from "react";
+import { useState,useDeferredValue } from "react";
 export default function App() {
+  const [searchText, setSearchText] = useState();
   const [photos, setPhotos] = useState([]);
-  const [isPending, startTransition] = useTransition();
-  const [currentPage, setCurrentPage] = useState(1);
-  const fetchPhotos = () => {
-    startTransition(async () => {
-      const res = await fetch("https://jsonplaceholder.typicode.com/photos");
-      const data = await res.json();
-      setPhotos(data);
-    });
-    for (let i = 0; i <= 1000000000; i++) {}
-  };
-
+  const deferredText = useDeferredValue(searchText)
+  fetch("https://jsonplaceholder.typicode.com/photos")
+    .then((res) => res.json())
+    .then((data) =>
+      setPhotos(data.filter((item) => item.title.includes(deferredText))),
+    )
+    .catch((err) => console.log(err));
   return (
     <div>
-      <button onClick={fetchPhotos}>Fetch Photos</button>
-      {isPending && <h2>Loading...</h2>}
+      <input type="text" onChange={(e) => setSearchText(e.target.value)} />
       {photos &&
         photos.map((item) => (
           <li key={item.id}>
@@ -27,6 +22,36 @@ export default function App() {
     </div>
   );
 }
+
+// import React, { useEffect } from "react";
+// import { useState } from "react";
+// import { useTransition } from "react";
+// export default function App() {
+//   const [photos, setPhotos] = useState([]);
+//   const [isPending, startTransition] = useTransition();
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const fetchPhotos = () => {
+//     startTransition(async () => {
+//       const res = await fetch("https://jsonplaceholder.typicode.com/photos");
+//       const data = await res.json();
+//       setPhotos(data);
+//     });
+//     for (let i = 0; i <= 1000000000; i++) {}
+//   };
+
+//   return (
+//     <div>
+//       <button onClick={fetchPhotos}>Fetch Photos</button>
+//       {isPending && <h2>Loading...</h2>}
+//       {photos &&
+//         photos.map((item) => (
+//           <li key={item.id}>
+//             {item.id}.{item.title}
+//           </li>
+//         ))}
+//     </div>
+//   );
+// }
 
 // import React, { useEffect } from "react";
 // import { useState } from "react";
