@@ -1,9 +1,60 @@
-import React from "react";
-import useFetch from "./useFetch.js";
+import React, { useEffect } from "react";
+import { useState } from "react";
 export default function App() {
-  const users = useFetch("https://jsonplaceholder.typicode.com/users");
-  return <div>{users && users.map((user) => <li>{user.name}</li>)}</div>;
+  const [photos, setPhotos] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const fetchPhotos = () => {
+    fetch("https://jsonplaceholder.typicode.com/photos")
+      .then((res) => res.json())
+      .then((data) => setPhotos(data))
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    fetchPhotos();
+  }, []);
+
+  const itemsPerPage = 10;
+
+  const startIndex = (currentPage - itemsPerPage) * currentPage;
+
+  const endIndex = startIndex + itemsPerPage;
+
+  const currentItems = photos.slice(startIndex, endIndex);
+
+  return (
+    <div>
+      {currentItems &&
+        currentItems.map((item) => (
+          <li key={item.id}>
+            {item.id}.{item.title}
+          </li>
+        ))}
+      <p>
+        <button onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
+        <button onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+      </p>
+    </div>
+  );
 }
+
+// import React from 'react'
+// import { FaHome,FaIdCard  } from "react-icons/fa";
+
+// export default function App() {
+//   return (
+//     <div>
+//       <FaHome size={30}/>Home
+//       <FaIdCard size={30} />Profile
+//     </div>
+//   )
+// }
+
+// import React from "react";
+// import useFetch from "./useFetch.js";
+// export default function App() {
+//   const users = useFetch("https://jsonplaceholder.typicode.com/users");
+//   return <div>{users && users.map((user) => <li>{user.name}</li>)}</div>;
+// }
 
 // import React, { useEffectEvent, useState } from 'react'
 // import { useEffect } from 'react'
