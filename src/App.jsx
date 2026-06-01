@@ -7,15 +7,32 @@
 // in tailwind.config.js update following
 //   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 
+
 import React from 'react'
 
 export default function App() {
   return (
-    <div>App</div>
+    <div className="flex bg-gray-300 justify-center items-center h-[500px]">
+      <div className="bg-red-300 m-3 p-3 w-[300px]">Box1</div>
+      <div className="bg-red-300 m-3 p-3 w-[300px]">Box2</div>
+      <div className="bg-red-300 m-3 p-3 w-[300px]">Box3</div>
+    </div>
   )
 }
 
 
+
+// import React from "react";
+// export default function App() {
+//   return (
+//     <div>
+//       <h1 className="bg-green-700 text-gray-300">Hello World</h1>
+//       <h1 className="bg-green-700 text-gray-300 m-3 p-3">Hello World</h1>
+//       <h1 className="bg-green-700 text-gray-300 mb-3 pt-3">Hello World</h1>
+//       <h1 className="bg-green-700 text-gray-300 mx-3 my-5">Hello World</h1>
+//     </div>
+//   );
+// }
 
 // import React, { useEffect } from "react";
 // import { useState,useDeferredValue } from "react";
