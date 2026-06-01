@@ -1,42 +1,103 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useTransition } from "react";
 export default function App() {
   const [photos, setPhotos] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [isPending, startTransition] = useTransition();
+  const [currentPage, setCurrentPage] = useState(1);
   const fetchPhotos = () => {
-    fetch("https://jsonplaceholder.typicode.com/photos")
-      .then((res) => res.json())
-      .then((data) => setPhotos(data))
-      .catch((err) => console.log(err));
+    startTransition(async () => {
+      const res = await fetch("https://jsonplaceholder.typicode.com/photos");
+      const data = await res.json();
+      setPhotos(data);
+    });
+    for (let i = 0; i <= 1000000000; i++) {}
   };
-  useEffect(() => {
-    fetchPhotos();
-  }, []);
-
-  const itemsPerPage = 10;
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-
-  const endIndex = startIndex + itemsPerPage;
-
-  const currentItems = photos.slice(startIndex, endIndex);
 
   return (
     <div>
-      <h2>My Photos</h2>
-      {currentItems &&
-        currentItems.map((item) => (
+      <button onClick={fetchPhotos}>Fetch Photos</button>
+      {isPending && <h2>Loading...</h2>}
+      {photos &&
+        photos.map((item) => (
           <li key={item.id}>
             {item.id}.{item.title}
           </li>
         ))}
-      <p>
-        <button onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
-        <button onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
-      </p>
     </div>
   );
 }
+
+// import React, { useEffect } from "react";
+// import { useState } from "react";
+// import { useTransition } from "react";
+// export default function App() {
+//   const [photos, setPhotos] = useState([]);
+//   const [isPending, startTransition] = useTransition();
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const fetchPhotos = () => {
+//     startTransition(async () => {
+//       const res = await fetch("https://jsonplaceholder.typicode.com/photos");
+//       const data = await res.json();
+//       setPhotos(data);
+//     });
+//     for (let i = 0; i <= 1000000000; i++) {}
+//   };
+//   // useEffect(() => {
+//   //   fetchPhotos();
+//   // }, []);
+
+//   const itemsPerPage = 10;
+//   const startIndex = (currentPage - 1) * itemsPerPage;
+//   const endIndex = startIndex + itemsPerPage;
+//   const currentItems = photos.slice(startIndex, endIndex);
+//   const totalPages = photos.length / itemsPerPage;
+
+//   return (
+//     <div>
+//       <button onClick={fetchPhotos}>Fetch Photos</button>
+//       {isPending && <h2>Loading...</h2>}
+//       <h2>
+//         My Photos - Page {currentPage} of {totalPages}
+//       </h2>
+//       <button disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>
+//         &lt;&lt;
+//       </button>
+//       <button
+//         disabled={currentPage === 1}
+//         onClick={() => setCurrentPage(currentPage - 1)}
+//       >
+//         &lt;
+//       </button>
+//       {Array.from({ length: totalPages }, (_, index) => (
+//         <span
+//           style={{ backgroundColor: currentPage === index + 1 && "yellow" }}
+//           onClick={() => setCurrentPage(index + 1)}
+//         >
+//           {index < currentPage + 9 && index > currentPage - 2 && index + 1}
+//         </span>
+//       ))}
+//       <button
+//         disabled={currentPage === totalPages}
+//         onClick={() => setCurrentPage(currentPage + 1)}
+//       >
+//         &gt;
+//       </button>
+//       <button
+//         disabled={currentPage === totalPages}
+//         onClick={() => setCurrentPage(totalPages)}
+//       >
+//         &gt;&gt;
+//       </button>
+//       {currentItems &&
+//         currentItems.map((item) => (
+//           <li key={item.id}>
+//             {item.id}.{item.title}
+//           </li>
+//         ))}
+//     </div>
+//   );
+// }
 
 // import React from 'react'
 // import { FaHome,FaIdCard  } from "react-icons/fa";
