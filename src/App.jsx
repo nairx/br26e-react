@@ -7,16 +7,36 @@
 // in tailwind.config.js update following
 //   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 
-import React from 'react'
+import React from "react";
 
 export default function App() {
   return (
     <div>
-      <h1 className="lg:text-3xl md:text-xl sm:text-sm">This is a heading of chapter 1 of HTML</h1>
+      <div className="w-[300px] p-3 m-2 border border-gray-500">
+        <img src="1.PNG" alt="" />
+        <h1 className="text-3xl">Product 1</h1>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+        </p>
+        <h3 className="font-bold p-1">Price: $100</h3>
+        <button className="bg-blue-900 text-white p-1 w-full rounded-sm">Add to Cart</button>
+      </div>
     </div>
-  )
+  );
 }
 
+// import React from 'react'
+// import "./App.css"
+// export default function App() {
+//   return (
+//     <div>
+//       <h1 className="lg:text-3xl md:text-xl sm:text-sm">This is a heading of chapter 1 of HTML</h1>
+//       <button>Submit</button>
+//       <button>Register</button>
+//       <div className="m-3 bg-orange-300 w-[100px] hover:bg-orange-500 hover:text-white">Box</div>
+//     </div>
+//   )
+// }
 
 // import React from "react";
 // import "./App.css"
