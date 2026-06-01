@@ -15,7 +15,7 @@ export default function App() {
 
   const itemsPerPage = 10;
 
-  const startIndex = (currentPage - itemsPerPage) * currentPage;
+  const startIndex = (currentPage - 1) * itemsPerPage;
 
   const endIndex = startIndex + itemsPerPage;
 
@@ -23,6 +23,7 @@ export default function App() {
 
   return (
     <div>
+      <h2>My Photos</h2>
       {currentItems &&
         currentItems.map((item) => (
           <li key={item.id}>
