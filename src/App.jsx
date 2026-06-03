@@ -1,3 +1,34 @@
+// Create folder backend-api
+// npm install -g json-server
+// db.json
+// {
+// "users": [
+//     { "id": 1, "name": "John", "email": "john@gmail.com" },
+//     { "id": 2, "name": "Anu", "email": "anu@gmail.com" }
+//   ]
+// }
+// }
+// npx json-server --watch db.json --port 3001
+
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+export default function App() {
+  const [users, setUsers] = useState([]);
+  const fetchUsers = async () => {
+    const res = await axios.get("http://localhost:5000/users");
+    setUsers(res.data);
+  };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+  return (
+    <div>
+      {users && users.map((user) => <li key={user.id}>{user.name}</li>)}
+    </div>
+  );
+}
+
 // npm install -D tailwindcss@3 postcss autoprefixer
 // npx tailwindcss init –p
 // Add following in index.css
@@ -7,23 +38,22 @@
 // in tailwind.config.js update following
 //   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 
-import React from "react";
-
-export default function App() {
-  return (
-    <div>
-      <div className="w-[300px] p-3 m-2 border border-gray-500">
-        <img src="1.PNG" alt="" />
-        <h1 className="text-3xl">Product 1</h1>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid
-        </p>
-        <h3 className="font-bold p-1">Price: $100</h3>
-        <button className="bg-blue-900 text-white p-1 w-full rounded-sm">Add to Cart</button>
-      </div>
-    </div>
-  );
-}
+// import React from "react";
+// export default function App() {
+//   return (
+//     <div>
+//       <div className="w-[300px] p-3 m-2 border border-gray-500">
+//         <img src="1.PNG" alt="" />
+//         <h1 className="text-3xl">Product 1</h1>
+//         <p>
+//           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+//         </p>
+//         <h3 className="font-bold p-1">Price: $100</h3>
+//         <button className="bg-blue-900 text-white p-1 w-full rounded-sm">Add to Cart</button>
+//       </div>
+//     </div>
+//   );
+// }
 
 // import React from 'react'
 // import "./App.css"
