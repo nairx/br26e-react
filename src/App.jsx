@@ -10,43 +10,21 @@
 // }
 // npx json-server --watch db.json --port 3001
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Users from "./Users";
+import EditUser from "./EditUser";
 export default function App() {
-  const [users, setUsers] = useState([]);
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const fetchUsers = async () => {
-    const res = await axios.get("http://localhost:5000/users");
-    setUsers(res.data);
-  };
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  const addUser = async () => {
-    const obj = {name:name,email:email}
-    const res = await axios.post("http://localhost:5000/users",obj)
-    fetchUsers()
-  }
-  return (
-    <div>
-      <p>
-        <input
-          type="text"
-          placeholder="Name"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <button onClick={addUser}>Add</button>
-      </p>
-      {users && users.map((user) => <li key={user.id}>{user.name}</li>)}
-    </div>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      children: [
+        { index: true, element: <Users /> },
+        { path: "editUser/:id", element: <EditUser /> },
+      ],
+    },
+  ]);
+  return <RouterProvider router={router} />;
 }
 
 // npm install -D tailwindcss@3 postcss autoprefixer
