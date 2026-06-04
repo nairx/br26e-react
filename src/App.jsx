@@ -1,3 +1,15 @@
+import React, { useState } from 'react'
+export default function App() {
+  const [characters,setCharacters] = useState(0)
+  return (
+    <div>
+      <textarea rows="4" cols="20" onChange={(e)=>setCharacters(e.target.value)}></textarea><br />
+      {characters.length}/200
+    </div>
+  )
+}
+
+
 // Create folder backend-api
 // npm install -g json-server
 // db.json
@@ -10,22 +22,22 @@
 // }
 // npx json-server --watch db.json --port 3001
 
-import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Users from "./Users";
-import EditUser from "./EditUser";
-export default function App() {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      children: [
-        { index: true, element: <Users /> },
-        { path: "editUser/:id", element: <EditUser /> },
-      ],
-    },
-  ]);
-  return <RouterProvider router={router} />;
-}
+// import React from "react";
+// import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// import Users from "./Users";
+// import EditUser from "./EditUser";
+// export default function App() {
+//   const router = createBrowserRouter([
+//     {
+//       path: "/",
+//       children: [
+//         { index: true, element: <Users /> },
+//         { path: "editUser/:id", element: <EditUser /> },
+//       ],
+//     },
+//   ]);
+//   return <RouterProvider router={router} />;
+// }
 
 // npm install -D tailwindcss@3 postcss autoprefixer
 // npx tailwindcss init –p
