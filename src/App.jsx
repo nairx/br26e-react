@@ -1,19 +1,73 @@
-import React from "react";
-import StudentCard from "./StudentCard";
-const students = [
-  { id: 1, name: "Nikhil", skill: "Java", location: "Bangalore",imgUrl:"https://picsum.photos/id/1/300/300" },
-  { id: 2, name: "Shivani", skill: "Java", location: "Hyderabad",imgUrl:"https://picsum.photos/id/2/300/300" },
-  { id: 3, name: "Sreeja", skill: "Java", location: "Bangalore",imgUrl:"https://picsum.photos/id/3/300/300" },
-];
+import React, { useState } from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 export default function App() {
+  const [user, setUser] = useState({});
+  const handleSuccess = (credentialResponse) => {
+    const details = jwtDecode(credentialResponse.credential);
+    setUser(details);
+  };
   return (
-    <div className="flex">
-      {students.map((student) => (
-        <StudentCard student={student} />
-      ))}
+    <div>
+      {!user?.email ? (
+        <div className="w-[300px] mx-auto border border-gray-500 m-5 p-5">
+          <h3>Login Form</h3>
+          <p>
+            <input
+              type="text"
+              className="m-1 bg-gray-300 w-full p-1"
+              placeholder="Email"
+            />
+          </p>
+          <p>
+            <input
+              type="password"
+              className="m-1 w-full bg-gray-300 p-1"
+              placeholder="Password"
+            />
+          </p>
+          <button className="m-1 bg-blue-900 text-white p-1 w-full">
+            Login
+          </button>
+          <hr />
+          <GoogleLogin
+            className="m-3"
+            onSuccess={handleSuccess}
+            onError={(err) => console.log(err)}
+          />
+        </div>
+      ) : (
+        <>
+          <div className="w-[300px] mx-auto border border-gray-500 m-5 p-5">
+            <img src={user.picture} />
+            <p>{user.name}</p>
+            <p>{user.email}</p>
+            <p>
+              <button onClick={() => setUser({})}>Logout</button>
+            </p>
+          </div>
+        </>
+      )}
     </div>
   );
 }
+
+// import React from "react";
+// import StudentCard from "./StudentCard";
+// const students = [
+//   { id: 1, name: "Nikhil", skill: "Java", location: "Bangalore",imgUrl:"https://picsum.photos/id/1/300/300" },
+//   { id: 2, name: "Shivani", skill: "Java", location: "Hyderabad",imgUrl:"https://picsum.photos/id/2/300/300" },
+//   { id: 3, name: "Sreeja", skill: "Java", location: "Bangalore",imgUrl:"https://picsum.photos/id/3/300/300" },
+// ];
+// export default function App() {
+//   return (
+//     <div className="flex">
+//       {students.map((student) => (
+//         <StudentCard student={student} />
+//       ))}
+//     </div>
+//   );
+// }
 
 // import React, { useState } from 'react'
 // export default function App() {
