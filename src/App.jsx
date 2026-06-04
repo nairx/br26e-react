@@ -1,14 +1,30 @@
-import React, { useState } from 'react'
+import React from "react";
+import StudentCard from "./StudentCard";
+const students = [
+  { id: 1, name: "Nikhil", skill: "Java", location: "Bangalore",imgUrl:"https://picsum.photos/id/1/300/300" },
+  { id: 2, name: "Shivani", skill: "Java", location: "Hyderabad",imgUrl:"https://picsum.photos/id/2/300/300" },
+  { id: 3, name: "Sreeja", skill: "Java", location: "Bangalore",imgUrl:"https://picsum.photos/id/3/300/300" },
+];
 export default function App() {
-  const [characters,setCharacters] = useState(0)
   return (
-    <div>
-      <textarea rows="4" cols="20" onChange={(e)=>setCharacters(e.target.value)}></textarea><br />
-      {characters.length}/200
+    <div className="flex">
+      {students.map((student) => (
+        <StudentCard student={student} />
+      ))}
     </div>
-  )
+  );
 }
 
+// import React, { useState } from 'react'
+// export default function App() {
+//   const [characters,setCharacters] = useState(0)
+//   return (
+//     <div>
+//       <textarea rows="4" cols="20" onChange={(e)=>setCharacters(e.target.value)}></textarea><br />
+//       {characters.length}/200
+//     </div>
+//   )
+// }
 
 // Create folder backend-api
 // npm install -g json-server
