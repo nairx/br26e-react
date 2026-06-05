@@ -3,70 +3,124 @@ export default function App() {
   const [score, setScore] = useState(0);
   const [userAnswer, setUserAnswer] = useState("");
   const answers = ["a", "b", "c", "d"];
+  const [flag, setFlag] = useState(true);
   const [q, setQ] = useState(0);
-  const questions = [
-    {
-      question: "Question 1",
-      options: ["Option A", "Option B", "Option C", "Option D"],
-      answer: "a",
-    },
-    {
-      question: "Question 2",
-      options: ["Option A", "Option B", "Option C", "Option D"],
-      answer: "b",
-    },
-    {
-      question: "Question 3",
-      options: ["Option A", "Option B", "Option C", "Option D"],
-      answer: "c",
-    },
-    {
-      question: "Question 4",
-      options: ["Option A", "Option B", "Option C", "Option D"],
-      answer: "a",
-    },
-    {
-      question: "Question 5",
-      options: ["Option A", "Option B", "Option C", "Option D"],
-      answer: "b",
-    },
-  ];
+  const [questions, setQuestions] = useState([]);
+  const API_KEY = import.meta.env.VITE_GEMINI_KEY;
+  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+
+  const payload = {
+    contents: [
+      {
+        parts: [
+          {
+            text: `Provide 10 mcq on mern. Return the output strictly in valid JSON format containing exactly four keys: "id","question","options" and "answer". Do not include markdown code blocks or wrapping text`,
+          },
+        ],
+      },
+    ],
+  };
+
+  // const payload = {
+  //   contents: [
+  //     {
+  //       parts: [
+  //         {
+  //           text: `Provide 10 mcq on mern. Return the output strictly in valid JSON format containing exactly four keys:"id","question","options" and "answer". Do not include markdown code blocks or wrapping text`,
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // };
+
+  const fetchQuestions = async () => {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json();
+    const responseText = await data.candidates[0].content.parts[0].text;
+    await setQuestions(JSON.parse(responseText));
+    await console.log(responseText);
+     setFlag(false);
+  };
+  // const questions = [
+  //   {
+  //     question: "Question 1",
+  //     options: ["Option A", "Option B", "Option C", "Option D"],
+  //     answer: "a",
+  //   },
+  //   {
+  //     question: "Question 2",
+  //     options: ["Option A", "Option B", "Option C", "Option D"],
+  //     answer: "b",
+  //   },
+  //   {
+  //     question: "Question 3",
+  //     options: ["Option A", "Option B", "Option C", "Option D"],
+  //     answer: "c",
+  //   },
+  //   {
+  //     question: "Question 4",
+  //     options: ["Option A", "Option B", "Option C", "Option D"],
+  //     answer: "a",
+  //   },
+  //   {
+  //     question: "Question 5",
+  //     options: ["Option A", "Option B", "Option C", "Option D"],
+  //     answer: "b",
+  //   },
+  // ];
   const handleNext = () => {
-    if (answers[userAnswer] === questions[q].answer) {
+    if (userAnswer === questions[q].answer) {
       setScore(score + 1);
     }
     setQ(q + 1);
   };
+
+  // const startQuiz = () => {
+  //   fetchQuestions()
+  //   setFlag(false);
+  // };
+
   return (
     <div>
       <h3>MERN Stack Quiz</h3>
       <hr />
-      <div>
-        <h3>{questions[q].question}</h3>
-        <div className="m-1">
-          {questions[q].options.map((option, index) => (
-            <div key={index}>
-              <input
-                type="radio"
-                name="rdOption"
-                value={index}
-                onChange={(e) => setUserAnswer(e.target.value)}
-              ></input>
-              {option}
-            </div>
-          ))}
+
+      {flag ? (
+        <button onClick={fetchQuestions}>Start Quiz</button>
+      ) : (
+        <div>
+          <h3>{questions[q].question}</h3>
+          <div className="m-1">
+            {questions[q].options.map((option, index) => (
+              <div key={index}>
+                <input
+                  type="radio"
+                  name="rdOption"
+                  value={option}
+                  onChange={(e) => setUserAnswer(e.target.value)}
+                ></input>
+                {option}
+              </div>
+            ))}
+          </div>
+          {q < questions.length - 1 && (
+            <button
+              className="bg-green-700 text-white p-1 rounded-lg"
+              onClick={handleNext}
+            >
+              Next Question
+            </button>
+          )}
+          <hr />
+          My Score:{score}
         </div>
-        {q < questions.length-1 && (
-          <button
-            className="bg-green-700 text-white p-1 rounded-lg"
-            onClick={handleNext}
-          >
-            Next Question
-          </button>
-        )}
-        <hr />
-        My Score:{score}
-      </div>
+      )}
     </div>
   );
 }
