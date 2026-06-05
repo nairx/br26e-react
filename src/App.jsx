@@ -1,56 +1,112 @@
 import React, { useState } from "react";
-import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
 export default function App() {
-  const [user, setUser] = useState({});
-  const handleSuccess = (credentialResponse) => {
-    const details = jwtDecode(credentialResponse.credential);
-    setUser(details);
-  };
+  const [score, setScore] = useState(0);
+  const [q, setQ] = useState(0);
+  const questions = [
+    {
+      question: "Question 1",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      answer: "a",
+    },
+    {
+      question: "Question 2",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      answer: "b",
+    },
+    {
+      question: "Question 3",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      answer: "c",
+    },
+    {
+      question: "Question 4",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      answer: "a",
+    },
+    {
+      question: "Question 5",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      answer: "b",
+    },
+  ];
+  const handleNext = () => {
+
+  }
   return (
     <div>
-      {!user?.email ? (
-        <div className="w-[300px] mx-auto border border-gray-500 m-5 p-5">
-          <h3>Login Form</h3>
-          <p>
-            <input
-              type="text"
-              className="m-1 bg-gray-300 w-full p-1"
-              placeholder="Email"
-            />
-          </p>
-          <p>
-            <input
-              type="password"
-              className="m-1 w-full bg-gray-300 p-1"
-              placeholder="Password"
-            />
-          </p>
-          <button className="m-1 bg-blue-900 text-white p-1 w-full">
-            Login
-          </button>
-          <hr />
-          <GoogleLogin
-            className="m-3"
-            onSuccess={handleSuccess}
-            onError={(err) => console.log(err)}
-          />
+      <h3>MERN Stack Quiz</h3>
+      <hr />
+      <div>
+        <h3>{questions[q].question}</h3>
+        <div className="m-1">
+          {questions[q].options.map((option) => (
+            <div>
+              <input type="radio" name="rdOption"></input>
+              {option}
+            </div>
+          ))}
         </div>
-      ) : (
-        <>
-          <div className="w-[300px] mx-auto border border-gray-500 m-5 p-5">
-            <img src={user.picture} />
-            <p>{user.name}</p>
-            <p>{user.email}</p>
-            <p>
-              <button onClick={() => setUser({})}>Logout</button>
-            </p>
-          </div>
-        </>
-      )}
+        <button className="bg-green-700 text-white p-1 rounded-lg" onClick={() => setQ(q + 1)}>Next Question</button>
+      <hr />
+      My Score:{score}
+      </div>
     </div>
   );
 }
+
+// import React, { useState } from "react";
+// import { GoogleLogin } from "@react-oauth/google";
+// import { jwtDecode } from "jwt-decode";
+// export default function App() {
+//   const [user, setUser] = useState({});
+//   const handleSuccess = (credentialResponse) => {
+//     const details = jwtDecode(credentialResponse.credential);
+//     setUser(details);
+//   };
+//   return (
+//     <div>
+//       {!user?.email ? (
+//         <div className="w-[300px] mx-auto border border-gray-500 m-5 p-5">
+//           <h3>Login Form</h3>
+//           <p>
+//             <input
+//               type="text"
+//               className="m-1 bg-gray-300 w-full p-1"
+//               placeholder="Email"
+//             />
+//           </p>
+//           <p>
+//             <input
+//               type="password"
+//               className="m-1 w-full bg-gray-300 p-1"
+//               placeholder="Password"
+//             />
+//           </p>
+//           <button className="m-1 bg-blue-900 text-white p-1 w-full">
+//             Login
+//           </button>
+//           <hr />
+//           <GoogleLogin
+//             className="m-3"
+//             onSuccess={handleSuccess}
+//             onError={(err) => console.log(err)}
+//           />
+//         </div>
+//       ) : (
+//         <>
+//           <div className="w-[300px] mx-auto border border-gray-500 m-5 p-5">
+//             <img src={user.picture} />
+//             <p>{user.name}</p>
+//             <p>{user.email}</p>
+//             <p>
+//               <button onClick={() => setUser({})}>Logout</button>
+//             </p>
+//           </div>
+//         </>
+//       )}
+//     </div>
+//   );
+// }
 
 // import React from "react";
 // import StudentCard from "./StudentCard";
