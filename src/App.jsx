@@ -21,18 +21,6 @@ export default function App() {
     ],
   };
 
-  // const payload = {
-  //   contents: [
-  //     {
-  //       parts: [
-  //         {
-  //           text: `Provide 10 mcq on mern. Return the output strictly in valid JSON format containing exactly four keys:"id","question","options" and "answer". Do not include markdown code blocks or wrapping text`,
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // };
-
   const fetchQuestions = async () => {
     const response = await fetch(API_URL, {
       method: "POST",
@@ -47,44 +35,12 @@ export default function App() {
     await console.log(responseText);
      setFlag(false);
   };
-  // const questions = [
-  //   {
-  //     question: "Question 1",
-  //     options: ["Option A", "Option B", "Option C", "Option D"],
-  //     answer: "a",
-  //   },
-  //   {
-  //     question: "Question 2",
-  //     options: ["Option A", "Option B", "Option C", "Option D"],
-  //     answer: "b",
-  //   },
-  //   {
-  //     question: "Question 3",
-  //     options: ["Option A", "Option B", "Option C", "Option D"],
-  //     answer: "c",
-  //   },
-  //   {
-  //     question: "Question 4",
-  //     options: ["Option A", "Option B", "Option C", "Option D"],
-  //     answer: "a",
-  //   },
-  //   {
-  //     question: "Question 5",
-  //     options: ["Option A", "Option B", "Option C", "Option D"],
-  //     answer: "b",
-  //   },
-  // ];
   const handleNext = () => {
     if (userAnswer === questions[q].answer) {
       setScore(score + 1);
     }
     setQ(q + 1);
   };
-
-  // const startQuiz = () => {
-  //   fetchQuestions()
-  //   setFlag(false);
-  // };
 
   return (
     <div>
