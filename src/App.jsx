@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 export default function App() {
   const [score, setScore] = useState(0);
+  const [userAnswer, setUserAnswer] = useState("");
+  const answers = ["a", "b", "c", "d"];
   const [q, setQ] = useState(0);
   const questions = [
     {
@@ -30,8 +32,11 @@ export default function App() {
     },
   ];
   const handleNext = () => {
-
-  }
+    if (answers[userAnswer] === questions[q].answer) {
+      setScore(score + 1);
+    }
+    setQ(q + 1);
+  };
   return (
     <div>
       <h3>MERN Stack Quiz</h3>
@@ -39,16 +44,28 @@ export default function App() {
       <div>
         <h3>{questions[q].question}</h3>
         <div className="m-1">
-          {questions[q].options.map((option) => (
-            <div>
-              <input type="radio" name="rdOption"></input>
+          {questions[q].options.map((option, index) => (
+            <div key={index}>
+              <input
+                type="radio"
+                name="rdOption"
+                value={index}
+                onChange={(e) => setUserAnswer(e.target.value)}
+              ></input>
               {option}
             </div>
           ))}
         </div>
-        <button className="bg-green-700 text-white p-1 rounded-lg" onClick={() => setQ(q + 1)}>Next Question</button>
-      <hr />
-      My Score:{score}
+        {q < questions.length-1 && (
+          <button
+            className="bg-green-700 text-white p-1 rounded-lg"
+            onClick={handleNext}
+          >
+            Next Question
+          </button>
+        )}
+        <hr />
+        My Score:{score}
       </div>
     </div>
   );
